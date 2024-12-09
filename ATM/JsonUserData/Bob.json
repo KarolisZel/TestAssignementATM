@@ -1,0 +1,13 @@
+{
+  "UserId": "f7e2424b-345d-454d-bc7c-7c2d7b111f96",
+  "UserName": "Bob",
+  "Password": "secure456",
+  "UserCard": {
+    "CardId": "2f6b5483-c320-44a3-acca-7672a02de9f5",
+    "Pin": "1111",
+    "MoneyAmount": 0,
+    "TransactionList": [],
+    "IsLimitReached": false,
+    "LastUsed": "0001-01-01"
+  }
+}
