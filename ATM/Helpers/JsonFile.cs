@@ -27,29 +27,24 @@ static class JsonFile
 
         foreach (var user in users)
         {
-            Console.WriteLine($"GUID: {user.UserId}");
             Console.WriteLine($"UserName: {user.UserName}");
-            foreach (var userCard in user.UserCards)
-            {
-                Console.WriteLine($"\tCard name: {userCard.CardName}");
-                Console.WriteLine($"\tMoney: {userCard.MoneyAmount}");
-                Console.WriteLine($"\tTransactions: {string.Join(", ", userCard.TransactionList)}");
-            }
+
+            Console.WriteLine($"\tMoney: {user.UserCard.MoneyAmount}");
+            Console.WriteLine($"\tTransactions: ");
+            Console.WriteLine("" + string.Join(",\n", user.UserCard.TransactionList));
         }
     }
 
-    public static void SaveUserToFile(List<User> users)
+    public static void SaveUserToFile(User user)
     {
-        foreach (var user in users)
-        {
-            Directory.CreateDirectory(FileFolderPath);
+        Directory.CreateDirectory(FileFolderPath);
 
-            var filePath = Path.Combine(FileFolderPath, $"{user.UserName}.json");
+        var filePath = Path.Combine(FileFolderPath, $"{user.UserName}.json");
+        File.Create(filePath).Close();
 
-            var json = JsonSerializer.Serialize(user, JsonOptions);
+        var json = JsonSerializer.Serialize(user, JsonOptions);
 
-            File.WriteAllText(filePath, json);
-        }
+        File.WriteAllText(filePath, json);
     }
 
     private static User LoadUserFromFile(string filePath)

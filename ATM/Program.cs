@@ -1,4 +1,5 @@
-﻿using static ATM.JsonFile;
+﻿using static ATM.Card;
+using static ATM.JsonFile;
 using static ATM.User;
 
 namespace ATM;
@@ -7,36 +8,23 @@ class Program
 {
     static void Main(string[] args)
     {
-        var users = new List<User>();
+        // Login or Create a new user
+        var currentUser = Login();
+        if (currentUser is null)
+            return;
 
-        var alice = CreateUser("Alice", "password123");
-        users.Add(alice);
+        // Get current users card
+        var currentCard = GetCurrentCard(currentUser);
+        if (currentCard is null)
+            Console.WriteLine($"Problem with your card {currentCard}");
 
-        var bob = CreateUser("Bob", "secure456");
-        users.Add(bob);
+        SaveUserToFile(currentUser);
 
-        var billy = CreateUser("Billy", "test");
-        users.Add(billy);
-
-        CheckUser(billy.UserName);
-
-        SaveUserToFile(users);
+        Deposit(currentUser, 20);
+        Deposit(currentUser, 15);
+        Deposit(currentUser, 5);
+        Withdraw(currentUser, 10);
 
         LoadAllUsers();
-    }
-
-    static User CheckUser(string username)
-    {
-        // Get all users
-        var users = GetAllUsernames();
-
-        // Check if User with this username exists
-        if (users.Exists(name => name == username))
-            // Check password
-            return LoadUser(username);
-
-        // If it does not exist => Create a new user
-
-        return CreateUser(username, "InputPasswordHere");
     }
 }

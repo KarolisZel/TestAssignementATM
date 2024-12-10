@@ -1,0 +1,20 @@
+{
+  "UserId": "fd814713-9e45-4087-ba2b-b2297eb55d93",
+  "UserName": "Nero",
+  "Password": "test123",
+  "UserCard": {
+    "CardId": "dd09c59d-bb96-42c1-9757-f0d2d78752d9",
+    "Pin": null,
+    "MoneyAmount": 145,
+    "TransactionCount": 4,
+    "TransactionList": [
+      "[12/10/2024] Deposit: 20 was deposited. Remaining amount =\u003E $115.",
+      "[12/10/2024] Deposit: 20 was deposited. Remaining amount =\u003E $135.",
+      "[12/10/2024] Deposit: 15 was deposited. Remaining amount =\u003E $150.",
+      "[12/10/2024] Deposit: 5 was deposited. Remaining amount =\u003E $155.",
+      "[12/10/2024] Withdraw: 10 was withdrawn. Remaining amount =\u003E $145"
+    ],
+    "IsLimitReached": false,
+    "LastUsed": "2024-12-10"
+  }
+}
