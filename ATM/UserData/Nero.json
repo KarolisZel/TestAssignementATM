@@ -1,20 +1,20 @@
 {
-  "UserId": "fd814713-9e45-4087-ba2b-b2297eb55d93",
+  "UserId": "128e8b34-c8a0-423b-9fde-fe988f443b42",
   "UserName": "Nero",
   "Password": "test123",
   "UserCard": {
-    "CardId": "dd09c59d-bb96-42c1-9757-f0d2d78752d9",
+    "CardId": "f30731d5-4f29-4313-9090-72a9eb8b9f04",
     "Pin": null,
-    "MoneyAmount": 145,
-    "TransactionCount": 4,
+    "MoneyAmount": 9060,
+    "TransactionCount": 5,
     "TransactionList": [
-      "[12/10/2024] Deposit: 20 was deposited. Remaining amount =\u003E $115.",
-      "[12/10/2024] Deposit: 20 was deposited. Remaining amount =\u003E $135.",
-      "[12/10/2024] Deposit: 15 was deposited. Remaining amount =\u003E $150.",
-      "[12/10/2024] Deposit: 5 was deposited. Remaining amount =\u003E $155.",
-      "[12/10/2024] Withdraw: 10 was withdrawn. Remaining amount =\u003E $145"
+      "[12/11/2024] Withdraw: 50 Moni was withdrawn. Remaining amount =\u003E $9010 Moni",
+      "[12/11/2024] Deposit: 20 Moni was deposited. Remaining amount =\u003E $9030 Moni",
+      "[12/11/2024] Deposit: 20 Moni was deposited. Remaining amount =\u003E $9050 Moni",
+      "[12/11/2024] Withdraw: 8 Moni was withdrawn. Remaining amount =\u003E $9042 Moni",
+      "[12/11/2024] Deposit: 18 Moni was deposited. Remaining amount =\u003E $9060 Moni"
     ],
     "IsLimitReached": false,
-    "LastUsed": "2024-12-10"
+    "LastUsed": "2024-12-11"
   }
 }

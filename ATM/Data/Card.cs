@@ -30,62 +30,93 @@ public class Card()
         IsLimitReached = TransactionCount >= 10;
     }
 
-    public static Card GetCurrentCard(User user)
+    private void CheckLimitReset()
     {
-        var current = LoadUser(user.UserName);
+        if (LastUsed >= DateOnly.FromDateTime(DateTime.Now) && TransactionCount != 0)
+            return;
 
-        return user.UserCard.CardId == current.UserCard.CardId ? user.UserCard : null;
+        TransactionCount = 0;
+        IsLimitReached = false;
     }
 
-    public static void Withdraw(User user, int amount)
+    public void Withdraw(int amount)
     {
-        if (!user.UserCard.IsLimitReached)
+        CheckLimitReset();
+
+        if (!IsLimitReached)
         {
             // Update LastUsed time
-            user.UserCard.LastUsed = DateOnly.FromDateTime(DateTime.Now);
+            LastUsed = DateOnly.FromDateTime(DateTime.Now);
 
             // Remove amount (if available)
-            if (user.UserCard.MoneyAmount < amount)
+            if (MoneyAmount < amount)
             {
-                Console.WriteLine($"Sorry, you don't have enough funds to withdraw {amount}!");
+                Console.WriteLine($"Sorry, you don't have enough funds to withdraw {amount} Moni!");
+                Thread.Sleep(3500);
                 return;
             }
 
-            user.UserCard.MoneyAmount -= amount;
+            if (amount > 1000)
+            {
+                Console.WriteLine($"Sorry, withdraw limit is 1000 Moni!");
+                Thread.Sleep(3500);
+                return;
+            }
+
+            MoneyAmount -= amount;
 
             // Add transaction to limit
-            user.UserCard.UpdateTransactionList(
-                $"[{user.UserCard.LastUsed}] Withdraw: {amount} was withdrawn. Remaining amount => ${user.UserCard.MoneyAmount}"
+            UpdateTransactionList(
+                $"[{LastUsed}] Withdraw: {amount} Moni was withdrawn. Remaining amount => ${MoneyAmount} Moni"
             );
 
             // Update transaction limits
-            user.UserCard.TransactionCount++;
-            user.UserCard.UpdateLimit();
+            TransactionCount++;
+            UpdateLimit();
+            Console.WriteLine($"{amount} Moni was successfully withdrawn.");
+
+            Thread.Sleep(3500);
+            return;
         }
 
-        // Save data to file
-        SaveUserToFile(user);
+        Console.WriteLine("Transaction limit reached!");
+        Thread.Sleep(3500);
     }
 
-    public static void Deposit(User user, int amount)
+    public void Deposit(int amount)
     {
-        if (!user.UserCard.IsLimitReached)
-        {
-            user.UserCard.LastUsed = DateOnly.FromDateTime(DateTime.Now);
+        CheckLimitReset();
 
-            user.UserCard.MoneyAmount += amount;
+        if (!IsLimitReached)
+        {
+            LastUsed = DateOnly.FromDateTime(DateTime.Now);
+
+            MoneyAmount += amount;
 
             // Add transaction to limit
-            user.UserCard.UpdateTransactionList(
-                $"[{user.UserCard.LastUsed}] Deposit: {amount} was deposited. Remaining amount => ${user.UserCard.MoneyAmount}."
+            UpdateTransactionList(
+                $"[{LastUsed}] Deposit: {amount} Moni was deposited. Remaining amount => ${MoneyAmount} Moni"
             );
 
             // Update transaction limits
-            user.UserCard.TransactionCount++;
-            user.UserCard.UpdateLimit();
+            TransactionCount++;
+            UpdateLimit();
+            Console.WriteLine($"{amount} Moni was successfully deposited.");
+
+            Thread.Sleep(3500);
+            return;
         }
 
-        // Save data to file
-        SaveUserToFile(user);
+        Console.WriteLine("Transaction limit reached!");
+        Thread.Sleep(3500);
+    }
+
+    public void PrintData()
+    {
+        Console.WriteLine($"\tBalance => {MoneyAmount} Moni");
+        Console.WriteLine($"\tTransactions today => {TransactionCount}");
+        Console.WriteLine("\tTransaction list => ");
+        Console.WriteLine("\t" + string.Join(",\n\t", TransactionList));
+        Console.WriteLine($"\tLast used => {LastUsed}");
     }
 }

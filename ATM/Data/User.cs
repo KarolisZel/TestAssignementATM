@@ -16,26 +16,23 @@ public class User()
         Password = password;
     }
 
-    // public static User CreateUser(string userName, string password)
-    // {
-    //     var user = new User(userName, password);
-    //     return user;
-    // }
-
     public static User Login()
     {
+        var rng = new Random();
         var validCount = 0;
         var isValid = true;
-        Console.Write("Enter your username: ");
+        Console.Write("Enter your name: ");
         var username = Console.ReadLine();
 
+        Console.WriteLine("\nChecking, please wait...\n(Usually takes about 1 to 5 seconds)");
+        Thread.Sleep(rng.Next(1000, 5000));
         var users = GetAllUsernames();
         if (users.Exists(name => name == username))
         {
             var user = LoadUser(username);
             do
             {
-                Console.Write("Enter your password: ");
+                Console.Write("User found, please enter your password: ");
                 var password = Console.ReadLine();
                 if (password != user.Password)
                 {
@@ -65,11 +62,18 @@ public class User()
 
     private static User Register(string username)
     {
-        Console.WriteLine($"Creating a new user with username: {username}\n");
+        Console.WriteLine($"Registering a new user with name: {username}\n");
 
         Console.Write("Please enter your desired password: ");
         var pass = Console.ReadLine();
 
         return new User(username, pass);
+    }
+
+    public Card GetCurrentCard()
+    {
+        var current = LoadUser(UserName);
+
+        return UserCard.CardId == current.UserCard.CardId ? UserCard : null;
     }
 }
